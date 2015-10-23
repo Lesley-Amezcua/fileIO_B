@@ -1,0 +1,66 @@
+//Name: Lesley Amezcua
+//Date: October 22, 2015
+//Description: FileIO_B
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <iomanip>
+
+using namespace std;
+
+int main(){
+
+	ifstream fin;
+	ofstream fout;
+	char file_Name[12];
+	string firstName, lastName, highestName;
+	double s1, s2, s3, s4, s5, avg;
+	double highest_Average = 0;
+	
+	cout << "Enter file name: " << endl;
+	cin >> file_Name;
+	
+	fin.open(file_Name);
+	fout.open("results.txt");
+	
+	if(fin.fail())
+	{
+	    cout << "Error on input file" << endl;
+	    exit(1);
+	}
+	if(fout.fail())
+	{
+	    cout << "Error on input file" << endl;
+	    exit(1);
+	}
+	while (fin >> firstName >> lastName >> s1 >> s2 >> s3 >> s4 >> s5 >> avg){
+		    fout.setf(ios::left);
+	        fout.setf(ios::fixed);
+	        fout.setf(ios::showpoint);
+	        fout.precision(1);
+	        
+		    fout << setw(10) << firstName
+			     << setw(12) << lastName
+			     << setw(8) << s1 << setw(8) << s2
+			     << setw(8) << s3 << setw(8) << s4
+			     << setw(8) << s5 << "Average: ";
+			     
+			 fout.setf(ios::left);
+	         fout.setf(ios::fixed);
+	         fout.setf(ios::showpoint);
+			 fout.precision(2);
+			 
+			 avg = (s1 + s2 + s3 + s4 + s5) / 5;
+		     fout << setw(8) << avg << endl;
+		if (avg > highest_Average){
+			highestName = firstName + " " + lastName;
+			highest_Average = avg;
+			
+		}
+	}
+	fout << "\nHighest score: " << highestName;
+	
+	fin.close();
+	fout.close();
+	return 0;
+}
